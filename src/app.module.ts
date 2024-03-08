@@ -11,6 +11,8 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { v2 as cloudinary } from 'cloudinary';
 import { ProductModule } from './product/product.module';
+import { OrderModule } from './order/order.module';
+import { ItemModule } from './item/item.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { ProductModule } from './product/product.module';
     CategoryModule,
     CloudinaryModule,
     ProductModule,
+    OrderModule,
+    ItemModule,
   ],
   controllers: [AppController],
   providers: [AppService, Logger, JwtGuard, JwtService],

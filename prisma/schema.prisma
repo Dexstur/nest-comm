@@ -69,6 +69,7 @@ model OrderItem {
 model Order {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
   userId     String     @db.ObjectId
+  completed  Boolean    @default(false)
   
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt

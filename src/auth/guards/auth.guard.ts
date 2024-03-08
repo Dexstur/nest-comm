@@ -36,7 +36,9 @@ export class JwtGuard implements CanActivate {
     const secret = this.config.get('JWT_SECRET');
 
     try {
-      const decoded = this.jwtService.verify(token.split(' ')[1], { secret });
+      const decoded = this.jwtService.verify(token.split(' ')[1], {
+        secret,
+      }) as RegKeyReturn;
       request.user = decoded; // Attach use(r information to the request
       return true;
     } catch (err) {

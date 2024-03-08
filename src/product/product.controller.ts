@@ -31,4 +31,9 @@ export class ProductController {
   ) {
     return this.productService.create(dto, img, id);
   }
+
+  @Get('category')
+  categoryList(@Query('id') id: string) {
+    return this.productService.listByCategory(id);
+  }
 }

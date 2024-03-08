@@ -12,8 +12,4 @@ export class ProductDto {
   @IsNumber()
   @IsNotEmpty()
   price: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  stock: number;
 }
