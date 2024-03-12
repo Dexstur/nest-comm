@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
-import { ProductDto } from 'src/dto';
+import { ProductDto, UpdateProductDto } from 'src/dto';
 
 @Injectable()
 export class ProductService {
@@ -94,5 +94,43 @@ export class ProductService {
         throw new Error(err.message);
       }
     }
+  }
+
+  async update(dto: UpdateProductDto, id: string, img?: Express.Multer.File) {
+    const product = await this.prisma.product.findUnique({
+      where: { id },
+    });
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    const image = img ? await this.cloudinary.UploadImage(img) : null;
+
+    for (const field in dto) {
+      if (!dto[field]) {
+        delete dto[field];
+      }
+    }
+
+    const updated = image
+      ? await this.prisma.product.update({
+          where: { id },
+          data: {
+            ...dto,
+            image: image.secure_url,
+          },
+        })
+      : await this.prisma.product.update({
+          where: { id },
+          data: {
+            ...dto,
+          },
+        });
+
+    return {
+      message: 'Product updated',
+      data: updated,
+    };
   }
 }

@@ -38,6 +38,7 @@ export class CategoryService {
   async list() {
     try {
       const categories = await this.prisma.category.findMany();
+
       return {
         message: 'Categories retrieved',
         data: categories,

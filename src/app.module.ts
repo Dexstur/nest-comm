@@ -1,5 +1,12 @@
-import { Module, Logger } from '@nestjs/common';
+import {
+  Module,
+  Logger,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import {} from '@nestjs/platform-express';
+import * as cors from 'cors';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -39,4 +46,9 @@ export class AppModule {
       api_secret: process.env.CLOUD_SECRET,
     });
   }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(cors({ origin: '*' }))
+  //     .forRoutes({ path: '*', method: RequestMethod.ALL });
+  // }
 }
